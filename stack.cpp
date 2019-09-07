@@ -71,7 +71,7 @@ void stack::topElem(el_t& elem)
 //          Otherwise, diplays the elements vertically.
 void stack::displayAll()
 {
-	if (isEmpty()) cout << .[empty]. << endl;
+	if (isEmpty()) cout << "Stack is empty" << endl;
 	else for (int i = top; i >= 0; i--)
 	{
 		cout << el[i] << endl;
@@ -83,9 +83,10 @@ void stack::displayAll()
 //PURPOSE: pops all elements from the stack to make it empty if it is not empty yet.
 void stack::clearIt()
 {
-	if (isEmpty()) { cout << .[empty]. << endl; }
+	int a; //Place holder for popped elements
+	if (isEmpty()) { cout << "Stack is Empty" << endl; }
 	else while (!isEmpty()) {
-		pop(i);
+		pop(a);
 	}
 }
 

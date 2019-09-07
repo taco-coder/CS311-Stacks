@@ -16,7 +16,7 @@ using namespace std;
 #include "stack.h"
 
 //Purpose of the program: To evaluate postfix expressions using a stack and to output any appropriate error messages
-//Algorithm: 
+//Algorithm: while loop evaluating each char of an expression
 int main()
 {
 	stack postfixstack;  // integer stack
@@ -27,7 +27,6 @@ int main()
 
 	int i = 0;  // character position within expression
 	char item;  // one char out of the expression
-	int elem;  //char variable converted to integer
 	int box1;  // receive things from pop
 	int box2;  // receive things from pop
 	int result; //result when 2 operands are correctly popped and operated on
@@ -37,10 +36,11 @@ int main()
 		try
 		{
 			item = expression[i];  // current char
-			elem = (int)item;
+			
 			//2.  if it is an operand (number), 
 			//    push it (you might get Overflow exception)
-			if ((elem >= 0) && (elem <= 9)) {
+			if ((item >= 48) && (item <= 57)) {
+				int elem = item - 48;
 				postfixstack.push(elem);
 			}
 
@@ -52,10 +52,11 @@ int main()
 			{
 				postfixstack.pop(box1);
 				postfixstack.pop(box2);
+
 				//cases for different operators follow:
 				if (item == '-') { result = box2 - box1; }
 				else if (item == '+') { result = box2 + box1; }
-				else if (item == '*') { result = box2 * box 1; }
+				else if (item == '*') { result = box2 * box1; }
 				// ** Finally push the result		 
 				postfixstack.push(result);
 			}
@@ -70,19 +71,20 @@ int main()
 		}
 		catch (stack::Underflow) // for too few operands
 		{
-			cout << "Error: Too few operands [UNDERFLOW]"
+			cout << "Error: Too few operands [UNDERFLOW]" << endl;
 		}
 		catch (char const* errorcode) // for invalid item
 		{
-			cout << "Error: Invalid Item"
+			cout << "Error: Invalid Item" << endl;
 		}
 		// go back to the loop after incrementing i
-		i++
+		i++;
 	}// end of while
 
   // After the loop successfully completes: 
   // The result will be at the top of the stack. Pop it and show it.
-	cout << postfixstack.topElem() << endl;
+	postfixstack.pop(result);
+	cout << result << endl;
 	// If anything is left on the stack, an incomplete expression was found.
 	// Inform the user.
 	if (!postfixstack.isEmpty()) {
